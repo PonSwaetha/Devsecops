@@ -1,0 +1,41 @@
+name: Secret Scanning with GitLeaks
+
+ 
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+ 
+
+jobs:
+  git-leaks-scan:
+    runs-on: ubuntu-latest
+
+ 
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+ 
+
+      - name: Install GitLeaks
+        run: |
+          wget https://github.com/zricethezav/gitleaks/releases/download/v7.5.1/gitleaks-linux-amd64 -O gitleaks
+          chmod +x gitleaks
+          sudo mv gitleaks /usr/local/bin/
+        shell: bash
+
+ 
+
+      - name: Run GitLeaks Scan
+        run: |
+          gitleaks --repo https://github.com/PonSwaetha/Devsecops.git --exclude 'path/to/excluded/directory'
+        env:
+          GITLEAKS_AUTH_REPO: false
+          GITLEAKS_BASIC_PASSWORD: ${{ secrets.GITLEAKS_BASIC_PASSWORD }}
