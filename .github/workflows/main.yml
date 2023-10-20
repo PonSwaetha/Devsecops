@@ -3,7 +3,7 @@ name: GitLeaks Scan
 on:
   push:
     branches:
-      - develop  # Modify this to match your repository's main branch
+      - main  # Modify this to match your repository's main branch
   pull_request:
     branches: [ "main" ]    
 
