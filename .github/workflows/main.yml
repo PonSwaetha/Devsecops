@@ -56,6 +56,9 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} # Add your Snyk token to GitHub Secrets
         run: snyk auth $SNYK_TOKEN
 
+      - name: Change directory to Maven project
+        run: cd Devsecops/pom.xml
+
       - name: Run Snyk test
         run: snyk test
 
