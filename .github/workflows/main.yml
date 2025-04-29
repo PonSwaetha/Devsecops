@@ -34,3 +34,29 @@ jobs:
     - name: Run GitLeaks
       run: |
         gitleaks detect --redact
+
+  snyk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14' # Change to your Node.js version
+
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
+      - name: Authenticate Snyk
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} # Add your Snyk token to GitHub Secrets
+        run: snyk auth $SNYK_TOKEN
+
+      - name: Run Snyk test
+        run: snyk test
+
+      - name: Run Snyk monitor
+        run: snyk monitor
