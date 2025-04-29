@@ -50,7 +50,7 @@ jobs:
       - name: Install Snyk CLI
         run: npm install -g snyk
 
-      - name: Authenticate Snyk
+      - name: Authenticate Snyk now
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} # Add your Snyk token to GitHub Secrets
         run: snyk auth $SNYK_TOKEN
